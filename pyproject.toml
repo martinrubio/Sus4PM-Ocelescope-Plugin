@@ -1,0 +1,27 @@
+[project]
+name = "sus4pm-plugin"
+version = "0.1.0"
+description = "Ocelescope plugin to analyse the sustainability measures of an object-centric event log"
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "GPL-3.0-or-later" }
+authors = [
+    { name = "Martin Rubio Mata", email = "mrubio@fing.edu.uy" },
+    { name = "Andrea Delgado" },
+    { name = "Félix García" },
+]
+# The plugin runs inside the Ocelescope backend, which brings its own copy of
+# these libraries. They are pinned here for development and tests: ocelescope is
+# the version shipped with Ocelescope v1.2.5, and r4pm-full the one in its
+# lockfile (0.13.0 does not work with r4pm-full 0.7).
+dependencies = [
+    "ocelescope==0.13.0",
+    "r4pm-full[polars]==0.6.2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]

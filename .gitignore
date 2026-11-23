@@ -1,0 +1,7 @@
+.venv/
+# Only the built plugin is versioned, so it can be downloaded from the repo.
+dist/*
+!dist/Sus4PMPlugin.zip
+.pytest_cache/
+__pycache__/
+*.egg-info/

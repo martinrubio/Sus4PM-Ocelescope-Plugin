@@ -1,0 +1,31 @@
+# Ocelescope for developing and trying the Sus4PM Plugin.
+#
+#   docker compose up -d        -> http://localhost:3001
+#
+# Port 3001, so it can run next to another Ocelescope on the default 3000.
+#
+# The images are pinned to the Ocelescope release the plugin is developed
+# against (app v1.2.5, library ocelescope 0.13.0). Uploaded plugins persist in
+# the "plugins" volume; logs live in the browser session.
+name: sus4pm-ocelescope
+
+services:
+  backend:
+    image: ghcr.io/promi4s/ocelescope-backend:v1.2.5
+    volumes:
+      - plugins:/plugins
+    # Published on localhost only, to script the API (scripts/smoke_test_api.py).
+    ports:
+      - "127.0.0.1:8100:8000"
+    restart: unless-stopped
+
+  frontend:
+    image: ghcr.io/promi4s/ocelescope-frontend:v1.2.5
+    ports:
+      - "127.0.0.1:3001:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  plugins:
